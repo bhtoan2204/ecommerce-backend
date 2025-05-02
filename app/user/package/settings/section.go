@@ -21,8 +21,20 @@ type LogConfig struct {
 	Compress   bool   `mapstructure:"compress"`
 }
 
+type PostgresConfig struct {
+	Host         string `mapstructure:"host"`
+	Port         int    `mapstructure:"port"`
+	Username     string `mapstructure:"username"`
+	Password     string `mapstructure:"password"`
+	Database     string `mapstructure:"database"`
+	MaxOpenConns int    `mapstructure:"max_open_conns"`
+	MaxIdleConns int    `mapstructure:"max_idle_conns"`
+	MaxLifetime  int    `mapstructure:"max_lifetime"`
+}
+
 type Config struct {
 	Server         ServerConfig   `mapstructure:"server"`
 	LogConfig      LogConfig      `mapstructure:"log"`
 	SecurityConfig SecurityConfig `mapstructure:"security"`
+	PostgresConfig PostgresConfig `mapstructure:"postgres"`
 }

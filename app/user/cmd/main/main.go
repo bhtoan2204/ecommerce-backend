@@ -6,6 +6,7 @@ import (
 	"syscall"
 	"user/config"
 	"user/package/logger"
+	"user/package/settings"
 
 	"go.uber.org/zap"
 )
@@ -20,11 +21,12 @@ func main() {
 			logger.Error("application went wrong. Panic err=%v", zap.Error(r.(error)))
 		}
 	}()
-	start(ctx)
+	start(ctx, &config)
 }
 
-func start(ctx context.Context) error {
+func start(ctx context.Context, config *settings.Config) error {
 	// Initialize your application here
 	// For example, you can set up a database connection, start a web server, etc.
+	// writeDb := postgresql.GetWriteDB(config)
 	return nil
 }

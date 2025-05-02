@@ -56,4 +56,14 @@ func bindEnv(v *viper.Viper) {
 
 	// // Opentelemetry mappings
 	// v.BindEnv("opentelemetry.endpoint", "OPENTELEMETRY_ENDPOINT")
+
+	// Postgres mappings
+	v.BindEnv("postgres.host", "POSTGRES_HOST")
+	v.BindEnv("postgres.port", "POSTGRES_PORT")
+	v.BindEnv("postgres.username", "POSTGRES_USERNAME")
+	v.BindEnv("postgres.password", "POSTGRES_PASSWORD")
+	v.BindEnv("postgres.database", "POSTGRES_DATABASE")
+	v.BindEnv("postgres.max_open_conns", "POSTGRES_MAX_OPEN_CONNS")
+	v.BindEnv("postgres.max_idle_conns", "POSTGRES_MAX_IDLE_CONNS")
+	v.BindEnv("postgres.max_lifetime", "POSTGRES_MAX_LIFETIME")
 }
