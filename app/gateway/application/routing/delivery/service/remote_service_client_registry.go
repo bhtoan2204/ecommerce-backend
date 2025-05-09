@@ -9,6 +9,6 @@ import(
 
 func initRemoteServiceClientRegistry(config *settings.Config) map[string]RemoteServiceClient {
     return map[string]RemoteServiceClient {
-<grpc_service_client_entries>
+        "UserService": remote.NewGrpcServiceClient(grpc.NewUserServiceClient(config)),
     }
 }

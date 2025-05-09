@@ -8,7 +8,7 @@ import (
     "google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-    "gateway/config"
+    "gateway/package/settings"
     "gateway/proto/<proto_folder>"
     
     "gateway/package/media"
@@ -21,7 +21,7 @@ type <handler_name_lower_1st>Handler struct {
     media media.IMedia
 }
 
-func New<handler_name>Handler(cfg *config.Config) *<handler_name_lower_1st>Handler {
+func New<handler_name>Handler(cfg *settings.Config) *<handler_name_lower_1st>Handler {
     return &<handler_name_lower_1st>Handler{media: media.New()}
 }
 

@@ -6,15 +6,16 @@ import (
 	"net/http"
 	"os"
 
+	"gateway/application/routing/delivery"
 	"gateway/middleware"
 	"gateway/package/logger"
 	"gateway/package/server"
+	"gateway/package/settings"
 	"gateway/package/tracer"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-	"honnef.co/go/tools/config"
 )
 
 var _ App = (*Server)(nil)
@@ -24,13 +25,13 @@ type App interface {
 }
 
 type Server struct {
-	cfg        *config.Config
+	cfg        *settings.Config
 	router     *gin.Engine
 	httpServer *http.Server
-	// handler    *delivery.RoutingHandler
+	handler    *delivery.RoutingHandler
 }
 
-func New(cfg *config.Config) (App, error) {
+func New(cfg *settings.Config) (App, error) {
 	return &Server{
 		cfg: cfg,
 	}, nil

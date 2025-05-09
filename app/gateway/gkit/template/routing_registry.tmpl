@@ -5,7 +5,7 @@ import (
     "gateway/application/routing/delivery/handler"
 <handler_paths>
     "gateway/application/routing/delivery/handler/custom"
-    "gateway/config"
+    "gateway/package/settings"
 )
 
 type routingConfig struct {
@@ -13,28 +13,4 @@ type routingConfig struct {
     remoteServiceName       string
     remoteServiceMethod     string
     remoteServicePermission string
-}
-
-func buildRegistry(cfg *config.Config) map[string]routingConfig {
-    return map[string]routingConfig{
-        "POST:/api/v1/oms/login": {
-            custom.NewLoginHandler(cfg),
-            "",
-            "",
-            "",
-        },
-        "POST:/api/v1/oms/logout": {
-            custom.NewLogoutHandler(cfg),
-            "",
-            "",
-            "",
-        },
-        "GET:/api/v1/oms/get-me": {
-            custom.NewGetMeHandler(cfg),
-            "",
-            "",
-            "",
-        },
-<routing_configs>
-    }
 }

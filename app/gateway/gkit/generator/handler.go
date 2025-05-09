@@ -107,6 +107,8 @@ func generateHandlers(proto *model.Proto, messages map[string]map[string]*model.
 				err = generateGetHandler(&handler, msgReqType)
 			case "POST":
 				msgReqType := findMessage(api.RequestType, proto, messages)
+				fmt.Println("&handler", &handler)
+				fmt.Println("msgReqType", msgReqType)
 				err = generatePostHandler(&handler, msgReqType)
 			case "PUT":
 				msgReqType := findMessage(api.RequestType, proto, messages)
@@ -148,7 +150,6 @@ func findMessage(reqType string, proto *model.Proto, messages map[string]map[str
 				val = tmp
 				break
 			}
-
 		}
 	}
 

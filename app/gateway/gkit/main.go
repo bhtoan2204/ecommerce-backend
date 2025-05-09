@@ -32,7 +32,6 @@ func main() {
 		proto := parser.ParseProtoFile(path)
 		protos = append(protos, proto)
 	}
-
 	handlers, handlerPaths, err := generator.GenerateHandlers(protos)
 	if err != nil {
 		fmt.Println("failed to generate handlers:", err)

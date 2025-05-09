@@ -1,8 +1,6 @@
 syntax = "proto3";
-
 package user;
-option go_package = "./proto/user;user";
-
+option go_package = "gateway/proto/user;user";
 
 message LoginRequest {
   string username = 1;

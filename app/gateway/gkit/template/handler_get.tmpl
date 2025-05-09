@@ -7,7 +7,7 @@ import(
     "reflect"
 
     "gateway/proto/<proto_folder>"
-    "gateway/config"
+    "gateway/package/settings"
 
     "gateway/package/wrapper"
     "gateway/package/monitor"
@@ -17,7 +17,7 @@ import(
 type <handler_name_lower_1st>Handler struct {
 }
 
-func New<handler_name>Handler(cfg *config.Config) *<handler_name_lower_1st>Handler {
+func New<handler_name>Handler(cfg *settings.Config) *<handler_name_lower_1st>Handler {
     return &<handler_name_lower_1st>Handler{}
 }
 

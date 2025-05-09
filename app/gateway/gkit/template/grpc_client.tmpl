@@ -6,7 +6,7 @@ import(
 
 	"google.golang.org/grpc/metadata"
     
-	"gateway/config"
+	"gateway/package/settings"
     "gateway/proto/<proto_folder>"
 	
     "gateway/package/grpc"
@@ -25,7 +25,7 @@ type <service_name_lower_1st>Client struct {
     methodRegistry map[string]func(interface{}, map[string]string) (interface{}, error)
 }
 
-func New<service_name>Client(config *config.Config) *<service_name_lower_1st>Client {
+func New<service_name>Client(config *settings.Config) *<service_name_lower_1st>Client {
     // using WithInsecure() because no SSL running
     cc, err := grpc.CreateGRPCClientConn(config.Service.<config_name>, false)
     if err != nil {
