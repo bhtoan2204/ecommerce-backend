@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package user;
+option go_package = "./proto/user;user";
+
+
+message GetProfileRequest {
+
+}
+
+message GetProfileResponse {
+
+}

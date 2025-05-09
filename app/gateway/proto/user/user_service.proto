@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package user;
+
+import "auth.proto";
+import "user.proto";
+
+// /api/v1/user-service
+service UserService {
+  // POST, /auth
+  rpc Login(LoginRequest) returns (LoginResponse);
+
+  // user, /user
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
+}
