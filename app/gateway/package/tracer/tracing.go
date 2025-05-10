@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	instrumentationName    = "bitbucket.org/hasaki-tech/tracing"
+	instrumentationName    = "gateway"
 	instrumentationVersion = "v0.1.0"
 )
 

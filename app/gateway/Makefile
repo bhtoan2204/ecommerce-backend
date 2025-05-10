@@ -1,6 +1,9 @@
 PROTO_DIR := proto
 GOIMPORTS := $(shell go env GOPATH)/bin/goimports
 
+server:
+	go run cmd/main.go
+
 protos:
 	@go install golang.org/x/tools/cmd/goimports@v0.1.12
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
@@ -16,3 +19,11 @@ protos:
 
 code-gen:
 	go run gkit/main.go
+PHONY: code-gen
+
+docs:
+	echo "Starting swagger generating"
+	go install github.com/swaggo/swag/cmd/swag@latest
+	swag fmt
+	swag init --parseDependency -g cmd/main.go
+.PHONY: docs

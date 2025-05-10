@@ -2,7 +2,7 @@
 package user
 
 import(
-    
+    "strconv"
     
     
 
@@ -21,14 +21,23 @@ func NewGetProfileHandler(cfg *settings.Config) *getProfileHandler {
     return &getProfileHandler{}
 }
 
-// @Summary permission: 
-// @Tags UserService
-// @Produce json
-// @Success 200 {object} user.user.GetProfileResponse
-// @Router /api/v1/invoice/profile [get]
+//	@Summary	permission: 
+//	@Tags		UserService
+//	@Produce	json
+//	@Param		id	query		int64	false	" "
+//	@Success	200	{object}	user.GetProfileResponse
+//	@Router		/api/v1/user-service/profile [get]
 func (handler *getProfileHandler) Handle(ctx *wrapper.Context) (interface{}, error) {
     monitor.SetApmContext(apm.DetachedContext(ctx.Request.Context()))
-    data := &user.user.GetProfileRequest{}
+    data := &user.GetProfileRequest{}
+    idStr := ctx.Query("id")
+    if idStr != "" {
+        idValue, err := strconv.ParseInt(idStr, 10, 64)
+        if err != nil {
+            return nil, err
+        }
+        data.Id = idValue
+    }
 
 
     return data, nil

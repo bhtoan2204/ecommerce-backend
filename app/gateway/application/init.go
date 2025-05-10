@@ -5,7 +5,7 @@ func (s *Server) initPublicRouting() {
 	h := s.handler
 	router := s.router.Group("")
 
-	pR := router.Group("/api/v1/oms/")
+	pR := router.Group("/api/v1/")
 	h.RegisterPublicAPI(pR)
 }
 
@@ -13,7 +13,7 @@ func (s *Server) initPrivateRouting() {
 	h := s.handler
 	router := s.router.Group("")
 
-	pR := router.Group("/api/v1/oms/")
+	pR := router.Group("/api/v1/")
 	pR.Use(h.Authorization())
 	h.RegisterPrivateAPI(pR)
 }
@@ -22,7 +22,7 @@ func (s *Server) initUserRouting() {
 	h := s.handler
 	router := s.router.Group("")
 
-	rUserUser := router.Group("/api/v1/invoice")
+	rUserUser := router.Group("/api/v1/user-service")
 	rUserUser.Use(h.Authorization())
-	h.RegisterAPI(rUserUser)
+	h.RegisterAPIUserService(rUserUser)
 }

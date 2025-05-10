@@ -3,8 +3,6 @@ package delivery
 
 import (
 	"gateway/application/routing/delivery/handler"
-	"gateway/application/routing/delivery/handler/custom"
-	"gateway/application/routing/delivery/handler/user"
 	"gateway/package/settings"
 )
 
@@ -13,4 +11,8 @@ type routingConfig struct {
 	remoteServiceName       string
 	remoteServiceMethod     string
 	remoteServicePermission string
+}
+
+func buildRegistry(cfg *settings.Config) map[string]routingConfig {
+	return map[string]routingConfig{}
 }

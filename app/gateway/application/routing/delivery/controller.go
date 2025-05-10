@@ -1,38 +1,31 @@
 package delivery
 
 import (
+	"fmt"
+	"gateway/package/logger"
 	"gateway/package/settings"
 	"net/http"
 	"strconv"
 
-	"oms-gateway/pkg/grpc"
-	"oms-gateway/pkg/logging"
-	"oms-gateway/proto/oms"
-	"oms-gateway/proto/wty"
+	"gateway/package/grpc"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"oms-gateway/application/model"
-	"oms-gateway/application/routing"
-	"oms-gateway/constant"
-	pkgRedis "oms-gateway/pkg/infras/redis"
-	jwtPkg "oms-gateway/pkg/jwt"
-	"oms-gateway/pkg/wrapper"
+	"gateway/application/model"
+	"gateway/application/routing"
+	"gateway/constant"
+	"gateway/package/wrapper"
 
 	"github.com/golang-jwt/jwt"
-
-	"github.com/redis/go-redis/v9"
 )
 
 type RoutingHandler struct {
 	config        *settings.Config
 	routingUC     routing.RoutingUseCase
-	redisClient   *redis.Client
 	registry      map[string]routingConfig
-	verifyAuth    jwtPkg.Verifier
-	verifyInside  jwtPkg.Verifier
 	internalRoute map[string]struct{}
 }
 
@@ -40,11 +33,6 @@ type AuthClaims struct {
 	jwt.StandardClaims
 	UserID int64  `json:"Sub"`
 	Email  string `json:"Email"`
-}
-
-type InsideClaims struct {
-	jwt.StandardClaims
-	UserID int64 `json:"sub"`
 }
 
 type ResponseError struct {
@@ -59,41 +47,17 @@ type AppError struct {
 }
 
 func NewRoutingHandler(cfg *settings.Config, routingUC routing.RoutingUseCase) *RoutingHandler {
-	redisClient, err := pkgRedis.New(cfg.Redis)
-	if err != nil {
-		panic(err)
-	}
-
-	verifyAuth, err := jwtPkg.NewVerifier(
-		jwtPkg.WithPublicKeyFile(cfg.JwtKey.AuthPublicKey),
-	)
-	if err != nil {
-		panic(err)
-	}
-
-	verifyInside, err := jwtPkg.NewVerifier(
-		jwtPkg.WithSecretKey(cfg.JwtKey.InsideSecret),
-	)
-	if err != nil {
-		panic(err)
-	}
-
 	return &RoutingHandler{
-		config:       cfg,
-		routingUC:    routingUC,
-		redisClient:  redisClient,
-		registry:     buildRegistry(cfg),
-		verifyAuth:   verifyAuth,
-		verifyInside: verifyInside,
-		internalRoute: map[string]struct{}{
-			"get:/api/v1/oms/shipment-store-summary": struct{}{},
-		},
+		config:        cfg,
+		routingUC:     routingUC,
+		registry:      buildRegistry(cfg),
+		internalRoute: map[string]struct{}{},
 	}
 }
 
 func (h *RoutingHandler) handle() gin.HandlerFunc {
 	return wrapper.WithContext(func(ctx *wrapper.Context) {
-		log := logging.DefaultLogger()
+		log := logger.DefaultLogger()
 
 		route := ctx.Request.Method + ":" + ctx.FullPath()
 		routingCfg, found := h.registry[route]
@@ -103,14 +67,11 @@ func (h *RoutingHandler) handle() gin.HandlerFunc {
 		}
 
 		uid := ctx.GetInt64(constant.KeyUserLoginID)
-		insideUid := ctx.GetInt64(constant.KeyInsideUserID)
 		metadata := map[string]string{
 			"ip-address":      ctx.ClientIP(),
 			"accept-language": ctx.GetHeader("Accept-Language"),
 			"token":           ctx.GetString(constant.KeyAuthToken),
 			"uid":             strconv.FormatInt(uid, 10),
-			"inside-token":    ctx.GetHeader("X-Inside-Token"),
-			"inside-uid":      strconv.FormatInt(insideUid, 10),
 			"user-email":      ctx.GetString(constant.KeyUserLoginEmail),
 		}
 
@@ -142,25 +103,12 @@ func (h *RoutingHandler) handle() gin.HandlerFunc {
 		res, err := h.routingUC.Forward(routing)
 		if err != nil {
 			appErr := &AppError{}
-			log.Errorf("Forward request failed: err", err, ", host:", h.config.Service.OmsServiceUrl)
+			log.Error("Forward request failed: err", zap.Error(err))
 			errStatus, _ := status.FromError(err)
 			for _, detail := range errStatus.Details() {
 				switch info := detail.(type) {
-				case *wty.ResponseError:
-					appErr.Errors = append(appErr.Errors, ResponseError{
-						HttpCode:  int(info.Httpcode),
-						GrpcCode:  int(info.Grpccode),
-						Message:   info.Message,
-						RootError: info.RootError,
-					})
-				case *oms.ResponseError:
-					appErr.Errors = append(appErr.Errors, ResponseError{
-						HttpCode:  int(info.Httpcode),
-						GrpcCode:  int(info.Grpccode),
-						Message:   info.Message,
-						RootError: info.RootError,
-					})
 				default:
+					fmt.Printf("Unknown type: %T\n", info)
 					appErr.Errors = append(appErr.Errors, ResponseError{
 						GrpcCode:  int(errStatus.Code()),
 						Message:   errStatus.String(),

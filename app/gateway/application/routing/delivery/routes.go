@@ -14,7 +14,7 @@ func (h *RoutingHandler) RegisterPrivateAPI(routes *gin.RouterGroup) {
 	routes.GET("/get-me", h.handle())
 }
 
-func (h *RoutingHandler) RegisterAPI(routes *gin.RouterGroup) {
+func (h *RoutingHandler) RegisterAPIUserService(routes *gin.RouterGroup) {
 	routes.POST("/login", h.handle())
 	routes.GET("/profile", h.handle())
 }

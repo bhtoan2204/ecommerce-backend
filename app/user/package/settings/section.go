@@ -32,9 +32,15 @@ type PostgresConfig struct {
 	MaxLifetime  int    `mapstructure:"max_lifetime"`
 }
 
+type Locale struct {
+	VIPath string `env:"LOCAL_VI_PATH"`
+	ENPath string `env:"LOCAL_EN_PATH"`
+}
+
 type Config struct {
 	Server         ServerConfig   `mapstructure:"server"`
 	LogConfig      LogConfig      `mapstructure:"log"`
 	SecurityConfig SecurityConfig `mapstructure:"security"`
 	PostgresConfig PostgresConfig `mapstructure:"postgres"`
+	Locale         Locale         `mapstructure:"locale"`
 }

@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"context"
 	"os"
 	"user/package/settings"
 
@@ -11,8 +12,17 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
+type contextKey string
+
+const loggerKey = contextKey("logger")
+
 type LoggerZap struct {
 	*otelzap.Logger
+}
+
+func (l *LoggerZap) WithFields(fields ...zapcore.Field) *LoggerZap {
+	clone := l.Logger.Clone(otelzap.WithExtraFields(fields...))
+	return &LoggerZap{Logger: clone}
 }
 
 func getEncoderLog() zapcore.Encoder {
@@ -68,4 +78,27 @@ func NewLogger(config settings.LogConfig) *LoggerZap {
 	zapLogger := zap.New(core, zap.AddCaller(), zap.AddStacktrace(zapcore.ErrorLevel))
 	otelLogger := otelzap.New(zapLogger)
 	return &LoggerZap{Logger: otelLogger}
+}
+
+func WithLogger(ctx context.Context, logger *LoggerZap) context.Context {
+	return context.WithValue(ctx, loggerKey, logger)
+}
+
+func DefaultLogger() *LoggerZap {
+	defaultConfig := settings.LogConfig{
+		LogLevel:   "info",
+		FilePath:   "app.log",
+		MaxSize:    10,
+		MaxBackups: 5,
+		MaxAge:     30,
+		Compress:   false,
+	}
+	return NewLogger(defaultConfig)
+}
+
+func FromContext(ctx context.Context) *LoggerZap {
+	if logger, ok := ctx.Value(loggerKey).(*LoggerZap); ok {
+		return logger
+	}
+	return DefaultLogger()
 }

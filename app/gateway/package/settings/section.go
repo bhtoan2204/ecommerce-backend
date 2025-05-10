@@ -65,6 +65,10 @@ type JaegerConfig struct {
 	Endpoint string `mapstructure:"endpoint"`
 }
 
+type Service struct {
+	UserServiceUrl string `mapstructure:"user_service_url"`
+}
+
 type Config struct {
 	Server         ServerConfig   `mapstructure:"server"`
 	MySQLConfig    MySQLConfig    `mapstructure:"mysql"`
@@ -75,4 +79,5 @@ type Config struct {
 	ConsulConfig   ConsulConfig   `mapstructure:"consul"`
 	KafkaConfig    KafkaConfig    `mapstructure:"kafka"`
 	JaegerConfig   JaegerConfig   `mapstructure:"jaeger"`
+	Service        Service        `mapstructure:"service"`
 }

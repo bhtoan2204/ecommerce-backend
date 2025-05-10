@@ -2,15 +2,18 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"gateway/application"
 	"gateway/package/config"
 	"gateway/package/logger"
+	"gateway/package/settings"
 	"os/signal"
 	"syscall"
 
 	"go.uber.org/zap"
 )
 
-//	@title			OMS API Gateway
+//	@title			API Gateway
 //	@version		1.0
 //	@description	REST -> GRPC API Gateway
 
@@ -33,7 +36,7 @@ func main() {
 			log.Info("Application went wrong. Panic err:", zap.Error(r.(error)))
 		}
 	}()
-	err := Initialize(ctx, config)
+	err := initialize(ctx, config)
 	done()
 	if err != nil {
 		log.Error("Initialize failed", zap.Error(err))
@@ -41,4 +44,13 @@ func main() {
 	}
 
 	log.Info("App shutdown successful")
+}
+
+func initialize(ctx context.Context, config *settings.Config) error {
+	app, err := application.New(config)
+	if err != nil {
+		return fmt.Errorf("new app got err=%w", err)
+	}
+
+	return app.Start(ctx)
 }

@@ -1,0 +1,15 @@
+syntax = "proto3";
+package user;
+option go_package = "gateway/proto/user;user";
+
+import "user/auth.proto";
+import "user/user.proto";
+
+// /api/v1/user-service
+service UserService {
+  // POST, /login
+  rpc Login(LoginRequest) returns (LoginResponse);
+
+  // GET, /profile
+  rpc GetProfile (GetProfileRequest) returns (GetProfileResponse);
+}

@@ -1,0 +1,86 @@
+basePath: /
+definitions:
+  gateway_proto_user.GetProfileResponse:
+    properties:
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  gateway_proto_user.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  gateway_proto_user.LoginResponse:
+    properties:
+      access_token:
+        type: string
+      access_token_expires_in:
+        type: integer
+      refresh_token:
+        type: string
+      refresh_token_expires_in:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: REST -> GRPC API Gateway
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: API Gateway
+  version: "1.0"
+paths:
+  /api/v1/user-service/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: <param_description>
+        in: body
+        name: username
+        schema:
+          type: string
+      - description: <param_description>
+        in: body
+        name: password
+        schema:
+          type: string
+      - description: Body example
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/gateway_proto_user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gateway_proto_user.LoginResponse'
+      summary: 'permission:'
+      tags:
+      - UserService
+  /api/v1/user-service/profile:
+    get:
+      parameters:
+      - description: ' '
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gateway_proto_user.GetProfileResponse'
+      summary: 'permission:'
+      tags:
+      - UserService
+swagger: "2.0"

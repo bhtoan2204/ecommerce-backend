@@ -80,7 +80,6 @@ func generateHandlers(proto *model.Proto, messages map[string]map[string]*model.
 	generationErrors := []error{}
 	for _, service := range proto.Services {
 		for _, api := range service.Apis {
-			fmt.Printf("generate api: %v \n", api)
 
 			// TODO: optimize this paths
 			paths := strings.Split(service.Path, ",")
@@ -107,8 +106,6 @@ func generateHandlers(proto *model.Proto, messages map[string]map[string]*model.
 				err = generateGetHandler(&handler, msgReqType)
 			case "POST":
 				msgReqType := findMessage(api.RequestType, proto, messages)
-				fmt.Println("&handler", &handler)
-				fmt.Println("msgReqType", msgReqType)
 				err = generatePostHandler(&handler, msgReqType)
 			case "PUT":
 				msgReqType := findMessage(api.RequestType, proto, messages)
@@ -138,22 +135,17 @@ func generateHandlers(proto *model.Proto, messages map[string]map[string]*model.
 }
 
 func findMessage(reqType string, proto *model.Proto, messages map[string]map[string]*model.Message) *model.Message {
-	val, has := messages[proto.FilePath][reqType]
-	if !has {
-		// Go find in other proto
-		for k, v := range messages {
-			if k == proto.FilePath {
-				continue
-			}
-			_, newReqType, _ := strings.Cut(reqType, ".")
-			if tmp, has := v[newReqType]; has {
-				val = tmp
-				break
-			}
+	if val, ok := messages[proto.FilePath][reqType]; ok {
+		return val
+	}
+
+	for _, msgMap := range messages {
+		if val, ok := msgMap[reqType]; ok {
+			return val
 		}
 	}
 
-	return val
+	return nil
 }
 
 func generatePostHandler(handler *model.Handler, requestType *model.Message) error {

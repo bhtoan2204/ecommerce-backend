@@ -2,8 +2,8 @@ package service
 
 import (
 	"errors"
+	"gateway/application/model"
 	"gateway/package/settings"
-	"oms-gateway/application/model"
 )
 
 type serviceClient struct {

@@ -7,6 +7,9 @@ import (
 	"os"
 
 	"gateway/application/routing/delivery"
+	"gateway/application/routing/delivery/service"
+	"gateway/application/routing/usecase"
+	_ "gateway/docs"
 	"gateway/middleware"
 	"gateway/package/logger"
 	"gateway/package/server"
@@ -15,6 +18,8 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"go.uber.org/zap"
 )
 
@@ -64,7 +69,6 @@ func (s *Server) Routes(ctx context.Context) http.Handler {
 		"Content-Length",
 		"Content-Type",
 		"Authorization",
-		"X-Inside-Token",
 	}
 	r.Use(cors.New(corsConfig))
 
@@ -80,10 +84,15 @@ func (s *Server) Routes(ctx context.Context) http.Handler {
 	r.GET("/health-check", pingHandler)
 	r.HEAD("/health-check", pingHandler)
 
-	// // swagger
-	// if os.Getenv("ENVIRONMENT") != "prod" {
-	// 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-	// }
+	s.router = r
+	s.handler = delivery.NewRoutingHandler(
+		s.cfg,
+		usecase.NewRoutingUseCase(service.NewServiceClient(s.cfg)))
+
+	// swagger
+	if os.Getenv("ENVIRONMENT") != "prod" {
+		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	}
 
 	// s.router = r
 	// s.handler = delivery.NewRoutingHandler(
