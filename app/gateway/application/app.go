@@ -43,6 +43,7 @@ func New(cfg *settings.Config) (App, error) {
 }
 
 func (s *Server) Routes(ctx context.Context) http.Handler {
+	log := logger.FromContext(ctx)
 	r := gin.New()
 	r.MaxMultipartMemory = 50 << 20
 	r.RedirectTrailingSlash = false
@@ -52,7 +53,7 @@ func (s *Server) Routes(ctx context.Context) http.Handler {
 	r.Use(middleware.SetLogger())
 	r.Use(tracer.GinMiddleware("gateway"))
 	r.Use(gin.CustomRecovery(func(c *gin.Context, err interface{}) {
-		fmt.Println("panic: ", err)
+		log.Error("something went wrong", zap.Int("status", http.StatusInternalServerError))
 		c.JSON(http.StatusInternalServerError, gin.H{"errors": gin.H{"error": "something went wrong"}}) // not return detail error to client when panic
 	}))
 
@@ -84,19 +85,19 @@ func (s *Server) Routes(ctx context.Context) http.Handler {
 	r.GET("/health-check", pingHandler)
 	r.HEAD("/health-check", pingHandler)
 
-	s.router = r
-	s.handler = delivery.NewRoutingHandler(
-		s.cfg,
-		usecase.NewRoutingUseCase(service.NewServiceClient(s.cfg)))
-
 	// swagger
 	if os.Getenv("ENVIRONMENT") != "prod" {
 		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	}
 
+	s.router = r
+	s.handler = delivery.NewRoutingHandler(
+		s.cfg,
+		usecase.NewRoutingUseCase(service.NewServiceClient(s.cfg)))
+
+	fmt.Println(s.handler)
+
 	// v1 api
-	s.initPublicRouting()
-	s.initPrivateRouting()
 	s.initUserRouting()
 
 	return r
@@ -105,12 +106,12 @@ func (s *Server) Routes(ctx context.Context) http.Handler {
 func (s *Server) Start(ctx context.Context) error {
 	log := logger.FromContext(ctx)
 
-	srv, err := server.New(8080)
+	srv, err := server.New(s.cfg.Server.Port)
 	if err != nil {
 		return err
 	}
 
-	log.Info("HTTP Server running on PORT", zap.Int("port", 8080))
+	log.Info("HTTP Server running on PORT", zap.Int("port", s.cfg.Server.Port))
 
 	return srv.ServeHTTPHandler(ctx, s.Routes(ctx))
 }

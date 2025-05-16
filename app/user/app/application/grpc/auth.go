@@ -3,11 +3,9 @@ package grpc
 import (
 	"context"
 	"user/proto/user"
-
-	"google.golang.org/grpc"
 )
 
-func (g *grpcApp) Login(ctx context.Context, in *user.LoginRequest, opts ...grpc.CallOption) (*user.LoginResponse, error) {
+func (g *grpcApp) Login(context.Context, *user.LoginRequest) (*user.LoginResponse, error) {
 	// Implement the login logic here
 	// For example, validate the user credentials and generate tokens
 	// Return the LoginResponse with the generated tokens

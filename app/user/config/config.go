@@ -41,6 +41,7 @@ func bindEnv(v *viper.Viper) {
 	// Server mappings
 	v.BindEnv("server.mode", "SERVER_MODE")
 	v.BindEnv("server.gin_mode", "GIN_MODE")
+	v.BindEnv("server.grpc_port", "GRPC_PORT")
 
 	// Security mappings
 	v.BindEnv("security.jwt_access_secret", "SECURITY_JWT_ACCESS_SECRET")

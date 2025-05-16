@@ -135,6 +135,6 @@ func (h *RoutingHandler) handle() gin.HandlerFunc {
 
 func (h *RoutingHandler) Authorization() gin.HandlerFunc {
 	return wrapper.WithContext(func(ctx *wrapper.Context) {
-		return
+		ctx.Next()
 	})
 }

@@ -77,4 +77,7 @@ func bindEnv(v *viper.Viper) {
 
 	// Jaeger mappings
 	v.BindEnv("jaeger.endpoint", "JAEGER_ENDPOINT")
+
+	// Service mappings
+	v.BindEnv("service.user_service_url", "USER_SERVICE_URL")
 }

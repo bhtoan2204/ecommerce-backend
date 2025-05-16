@@ -4,6 +4,7 @@ package delivery
 import (
     "gateway/application/routing/delivery/handler"
     "gateway/package/settings"
+<handler_paths>
 )
 
 type routingConfig struct {
@@ -14,5 +15,7 @@ type routingConfig struct {
 }
 
 func buildRegistry(cfg *settings.Config) map[string]routingConfig {
-	return map[string]routingConfig{}
+    return map[string]routingConfig{
+<routing_configs>
+    }
 }

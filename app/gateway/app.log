@@ -1,0 +1,2 @@
+{"level":"INFO","timestamp":"2025-05-16T17:43:52.354+0700","caller":"grpc_zap/client_interceptors.go:28","msg":"Starting grpc request","method":"/user.UserService/GetProfile"}
+{"level":"INFO","timestamp":"2025-05-16T17:43:52.355+0700","caller":"grpc_zap/client_interceptors.go:31","msg":"GRPC request finished","method":"/user.UserService/GetProfile","latency":0}

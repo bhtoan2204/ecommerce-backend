@@ -5,15 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *RoutingHandler) RegisterPublicAPI(routes *gin.RouterGroup) {
-	routes.POST("/login", h.handle())
-}
-
-func (h *RoutingHandler) RegisterPrivateAPI(routes *gin.RouterGroup) {
-	routes.POST("/logout", h.handle())
-	routes.GET("/get-me", h.handle())
-}
-
 func (h *RoutingHandler) RegisterAPIUserService(routes *gin.RouterGroup) {
 	routes.POST("/login", h.handle())
 	routes.GET("/profile", h.handle())

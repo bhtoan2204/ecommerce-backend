@@ -21,12 +21,12 @@ func NewGetProfileHandler(cfg *settings.Config) *getProfileHandler {
     return &getProfileHandler{}
 }
 
-//	@Summary	permission: 
-//	@Tags		UserService
-//	@Produce	json
-//	@Param		id	query		int64	false	" "
-//	@Success	200	{object}	user.GetProfileResponse
-//	@Router		/api/v1/user-service/profile [get]
+// @Summary permission: 
+// @Tags UserService
+// @Produce json
+// @Param id  query  int64 false " "
+// @Success 200 {object} user.GetProfileResponse
+// @Router /api/v1/user-service/profile [get]
 func (handler *getProfileHandler) Handle(ctx *wrapper.Context) (interface{}, error) {
     monitor.SetApmContext(apm.DetachedContext(ctx.Request.Context()))
     data := &user.GetProfileRequest{}

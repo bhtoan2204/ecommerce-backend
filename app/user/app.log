@@ -1,0 +1,7 @@
+{"level":"INFO","timestamp":"2025-05-16T16:49:57.021+0700","caller":"server/server.go:82","msg":"ServeGRPC: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T16:49:57.021+0700","caller":"server/server.go:91","msg":"ServeGPRC: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T16:54:10.005+0700","caller":"server/server.go:82","msg":"ServeGRPC: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T16:54:10.005+0700","caller":"server/server.go:91","msg":"ServeGPRC: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:01:25.341+0700","caller":"server/server.go:82","msg":"ServeGRPC: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:01:25.341+0700","caller":"server/server.go:91","msg":"ServeGPRC: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:03:36.354+0700","caller":"application/app.go:111","msg":"Starting GRPC Server","ip":"::","port":"38213"}

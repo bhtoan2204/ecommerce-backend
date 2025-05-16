@@ -47,3 +47,82 @@
 {"level":"INFO","timestamp":"2025-05-16T15:43:04.936+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
 {"level":"INFO","timestamp":"2025-05-16T15:43:04.937+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
 {"level":"INFO","timestamp":"2025-05-16T15:43:06.229+0700","caller":"application/app.go:113","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T16:26:44.963+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T16:26:44.963+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T16:26:44.964+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T16:26:44.964+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:06:35.410+0700","caller":"application/app.go:113","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:08:33.301+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:33.301+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:33.301+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:33.301+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:34.636+0700","caller":"application/app.go:113","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:08:52.279+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:52.279+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:52.279+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:52.280+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:08:53.443+0700","caller":"application/app.go:113","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:10:17.481+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:17.481+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:17.481+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:17.481+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:18.301+0700","caller":"application/app.go:113","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:10:18.844+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:18.845+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:18.845+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:18.845+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:24.250+0700","caller":"application/app.go:113","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:10:41.253+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:41.253+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:41.253+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:10:41.253+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:12:30.138+0700","caller":"application/app.go:111","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:14:30.921+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:14:30.921+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:14:30.921+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:14:30.921+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:14:38.449+0700","caller":"application/app.go:111","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:16:04.391+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:16:04.391+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:16:04.391+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:16:04.391+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:16:05.710+0700","caller":"application/app.go:111","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:18:06.642+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:18:06.643+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:18:06.643+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:18:06.644+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:18:07.486+0700","caller":"application/app.go:111","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:18:13.647+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:18:13.647+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:18:13.648+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:18:13.648+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:20:08.217+0700","caller":"application/app.go:111","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:24:54.851+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:24:54.851+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:24:54.851+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:24:54.851+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:24:56.092+0700","caller":"application/app.go:116","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:33:20.589+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:33:20.589+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:33:20.589+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:33:20.589+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:33:21.865+0700","caller":"application/app.go:111","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:38:32.423+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:38:32.423+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:38:32.423+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:38:32.423+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:38:33.872+0700","caller":"application/app.go:114","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:42:28.338+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:42:28.338+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:42:28.338+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:42:28.338+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:42:29.328+0700","caller":"application/app.go:114","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:42:29.753+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:42:29.753+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:42:29.753+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:42:29.753+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
+{"level":"INFO","timestamp":"2025-05-16T17:43:47.150+0700","caller":"application/app.go:114","msg":"HTTP Server running on PORT","port":8080}
+{"level":"DEBUG","timestamp":"2025-05-16T17:47:26.886+0700","caller":"server/server.go:47","msg":"ServeHTTP: context is closed"}
+{"level":"INFO","timestamp":"2025-05-16T17:47:26.886+0700","caller":"server/server.go:52","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-16T17:47:26.886+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-16T17:47:26.887+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}

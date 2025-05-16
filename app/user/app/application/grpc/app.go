@@ -2,10 +2,10 @@ package grpc
 
 import "user/proto/user"
 
-var _ user.UserServiceClient = (*grpcApp)(nil)
+var _ user.UserServiceServer = (*grpcApp)(nil)
 
 type GrpcApp interface {
-	user.UserServiceClient
+	user.UserServiceServer
 }
 
 type grpcApp struct {
