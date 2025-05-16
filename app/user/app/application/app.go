@@ -2,7 +2,8 @@ package application
 
 import (
 	"context"
-	"user/app/domain/interfaces"
+	"fmt"
+	"user/app/domain/services"
 	"user/package/contxt"
 	"user/package/logger"
 	"user/package/mgrpc"
@@ -26,11 +27,20 @@ type app struct {
 	// env *env.Env
 
 	// repos repos.Repo
-	srvs interfaces.Service
+	srvs services.Service
 }
 
 func NewApp(cfg *settings.Config) (App, error) {
-	return nil, nil
+	services, err := services.NewService(cfg)
+
+	if err != nil {
+		fmt.Println("error occurs", err)
+		return nil, err
+	}
+	return &app{
+		cfg:  cfg,
+		srvs: services,
+	}, nil
 }
 
 func (a *app) Start(ctx context.Context) error {

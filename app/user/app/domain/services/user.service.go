@@ -1,14 +1,17 @@
-package service
+package services
 
 import (
 	"user/app/domain/dto"
-	"user/app/domain/interfaces"
 )
+
+type UserService interface {
+	Login(request *dto.LoginRequest) (*dto.LoginResponse, error)
+}
 
 type userService struct {
 }
 
-func NewUserService() interfaces.UserService {
+func NewUserService() UserService {
 	return &userService{}
 }
 func (s *userService) Login(request *dto.LoginRequest) (*dto.LoginResponse, error) {

@@ -1,14 +1,22 @@
-package service
+package services
 
 import (
 	"errors"
 	"user/app/domain/entities"
-	"user/app/domain/interfaces"
 )
+
+type AddressService interface {
+	GetAddressByUserId(userId string) ([]*entities.Address, error)
+	GetAddressById(id string) (*entities.Address, error)
+	GetAllAddresses() ([]*entities.Address, error)
+	CreateAddress(address *entities.Address) (*entities.Address, error)
+	UpdateAddress(id string, address *entities.Address) (*entities.Address, error)
+	DeleteAddress(id string) error
+}
 
 type addressService struct{}
 
-func NewAddressService() interfaces.AddressService {
+func NewAddressService() AddressService {
 	return &addressService{}
 }
 

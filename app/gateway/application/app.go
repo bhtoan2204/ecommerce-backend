@@ -94,10 +94,10 @@ func (s *Server) Routes(ctx context.Context) http.Handler {
 		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	}
 
-	// s.router = r
-	// s.handler = delivery.NewRoutingHandler(
-	// 	s.cfg,
-	// 	usecase.NewRoutingUseCase(service.NewServiceClient(s.cfg)))
+	// v1 api
+	s.initPublicRouting()
+	s.initPrivateRouting()
+	s.initUserRouting()
 
 	return r
 }

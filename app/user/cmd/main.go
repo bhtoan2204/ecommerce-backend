@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os/signal"
 	"syscall"
+	"user/app/application"
 	"user/config"
 	"user/package/logger"
 	"user/package/settings"
@@ -28,5 +30,14 @@ func start(ctx context.Context, config *settings.Config) error {
 	// Initialize your application here
 	// For example, you can set up a database connection, start a web server, etc.
 	// writeDb := postgresql.GetWriteDB(config)
-	return nil
+	app, err := application.NewApp(config)
+	if err != nil {
+		return fmt.Errorf("new app got err=%w", err)
+	}
+
+	if app == nil {
+		return fmt.Errorf("NewApp returned nil app without error")
+	}
+
+	return app.Start(ctx)
 }
