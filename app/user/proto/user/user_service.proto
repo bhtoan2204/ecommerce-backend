@@ -12,4 +12,6 @@ service UserService {
 
   // GET, /profile
   rpc GetProfile (GetProfileRequest) returns (GetProfileResponse);
+  // POST, /user
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
 }

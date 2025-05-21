@@ -8,4 +8,5 @@ import (
 func (h *RoutingHandler) RegisterAPIUserService(routes *gin.RouterGroup) {
 	routes.POST("/login", h.handle())
 	routes.GET("/profile", h.handle())
+	routes.POST("/user", h.handle())
 }

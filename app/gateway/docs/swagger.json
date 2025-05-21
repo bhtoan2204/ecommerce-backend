@@ -28,7 +28,7 @@
                 "parameters": [
                     {
                         "description": "\u003cparam_description\u003e",
-                        "name": "username",
+                        "name": "email",
                         "in": "body",
                         "schema": {
                             "type": "string"
@@ -88,9 +88,132 @@
                     }
                 }
             }
+        },
+        "/api/v1/user-service/user": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserService"
+                ],
+                "summary": "permission:",
+                "parameters": [
+                    {
+                        "description": "\u003cparam_description\u003e",
+                        "name": "email",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "\u003cparam_description\u003e",
+                        "name": "password",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "\u003cparam_description\u003e",
+                        "name": "first_name",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "\u003cparam_description\u003e",
+                        "name": "last_name",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "\u003cparam_description\u003e",
+                        "name": "phone_number",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "\u003cparam_description\u003e",
+                        "name": "avatar",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "\u003cparam_description\u003e",
+                        "name": "birth_date",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Body example",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/gateway_proto_user.CreateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/gateway_proto_user.CreateUserResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "gateway_proto_user.CreateUserRequest": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "birth_date": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                }
+            }
+        },
+        "gateway_proto_user.CreateUserResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
         "gateway_proto_user.GetProfileResponse": {
             "type": "object",
             "properties": {
@@ -105,10 +228,10 @@
         "gateway_proto_user.LoginRequest": {
             "type": "object",
             "properties": {
-                "password": {
+                "email": {
                     "type": "string"
                 },
-                "username": {
+                "password": {
                     "type": "string"
                 }
             }

@@ -28,5 +28,11 @@ func buildRegistry(cfg *settings.Config) map[string]routingConfig {
 			"GetProfile",
 			"",
 		},
+		"POST:/api/v1/user-service/user": {
+			user.NewCreateUserHandler(cfg),
+			"UserService",
+			"CreateUser",
+			"",
+		},
 	}
 }

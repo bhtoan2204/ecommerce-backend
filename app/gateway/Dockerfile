@@ -1,15 +1,19 @@
-FROM golang:1.23-alpine:latest AS build
+FROM golang:1.24-alpine AS build
 
 WORKDIR /usr/app
 
-COPY . .
+COPY app/gateway/go.mod .
+COPY app/gateway/go.sum .
+RUN go mod download
 
-RUN go build -o /usr/app/gateway /usr/app/cmd/main
+COPY app/gateway/ .
 
-FROM alpine:latest AS production
+RUN go build -o /usr/app/gateway /usr/app/cmd/main.go
+
+FROM alpine AS production
 
 WORKDIR /usr/app
 
-COPY --from=build /usr/app .
+COPY --from=build /usr/app ./
 
 CMD ["./gateway"]

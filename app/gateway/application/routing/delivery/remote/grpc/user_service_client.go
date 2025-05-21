@@ -18,6 +18,7 @@ func (client *userServiceClient) initMethodRegistry() {
 	client.methodRegistry = map[string]func(interface{}, map[string]string) (interface{}, error){
 		"Login":      client.login,
 		"GetProfile": client.getProfile,
+		"CreateUser": client.createUser,
 	}
 }
 
@@ -61,4 +62,13 @@ func (client *userServiceClient) getProfile(data interface{}, md map[string]stri
 		ctx = metadata.AppendToOutgoingContext(ctx, k, v)
 	}
 	return client.grpcClient.GetProfile(ctx, data.(*user.GetProfileRequest))
+}
+
+func (client *userServiceClient) createUser(data interface{}, md map[string]string) (interface{}, error) {
+	ctx := monitor.GetApmContext()
+	//ctx := context.Background()
+	for k, v := range md {
+		ctx = metadata.AppendToOutgoingContext(ctx, k, v)
+	}
+	return client.grpcClient.CreateUser(ctx, data.(*user.CreateUserRequest))
 }

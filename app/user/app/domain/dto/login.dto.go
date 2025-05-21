@@ -1,10 +1,27 @@
 package dto
 
-import "errors"
+import (
+	"errors"
+	"user/proto/user"
+)
 
 type LoginRequest struct {
-	Username string `json:"username" validate:"required"`
+	Email    string `json:"email" validate:"required"`
 	Password string `json:"password" validate:"required"`
+}
+
+func (r *LoginRequest) CommandName() string {
+	return "LoginCommand"
+}
+
+func (l *LoginRequest) Validate() error {
+	if l.Email == "" {
+		return errors.New("email cannot be empty")
+	}
+	if l.Password == "" {
+		return errors.New("password cannot be empty")
+	}
+	return nil
 }
 
 type LoginResponse struct {
@@ -14,20 +31,11 @@ type LoginResponse struct {
 	RefreshTokenExpiresIn int64  `json:"refresh_token_expires_in"`
 }
 
-func (l *LoginRequest) Validate() error {
-	if l.Username == "" {
-		return errors.New("username cannot be empty")
+func (res *LoginResponse) ToPb() *user.LoginResponse {
+	return &user.LoginResponse{
+		AccessToken:           res.AccessToken,
+		RefreshToken:          res.RefreshToken,
+		AccessTokenExpiresIn:  res.AccessTokenExpiresIn,
+		RefreshTokenExpiresIn: res.RefreshTokenExpiresIn,
 	}
-	if l.Password == "" {
-		return errors.New("password cannot be empty")
-	}
-	return nil
-}
-
-func (l *LoginRequest) GetUsername() string {
-	return l.Username
-}
-
-func (l *LoginRequest) GetPassword() string {
-	return l.Password
 }

@@ -4,95 +4,223 @@ import (
 	"errors"
 	"strings"
 	"time"
-)
-
-type UserTier string
-
-const (
-	TierBronze   UserTier = "bronze"
-	TierSilver   UserTier = "silver"
-	TierGold     UserTier = "gold"
-	TierPlatinum UserTier = "platinum"
-)
-
-type UserRole string
-
-const (
-	RoleCustomer UserRole = "customer"
-	RoleSeller   UserRole = "seller"
-	RoleAdmin    UserRole = "admin"
+	"user/package/xtypes"
 )
 
 type User struct {
-	ID            string
-	Email         string
-	PasswordHash  string
-	FirstName     string
-	LastName      string
-	PhoneNumber   string
-	BirthDate     *time.Time
-	Address       string
-	Avatar        string
-	PinCode       string
-	Tier          UserTier
-	Role          UserRole
-	IsActive      bool
-	EmailVerified bool
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
+	id            string
+	email         string
+	passwordHash  string
+	firstName     string
+	lastName      string
+	phoneNumber   string
+	birthDate     *time.Time
+	addresses     []*Address
+	avatar        string
+	pinCode       string
+	tier          xtypes.UserTier
+	role          xtypes.UserRole
+	isActive      bool
+	emailVerified bool
+}
+
+func DefaultUser() *User {
+	return &User{}
+}
+
+func NewUser(
+	email string,
+	passwordHash string,
+	firstName string,
+	lastName string,
+	phoneNumber string,
+	birthDate *time.Time,
+	addresses []*Address,
+	avatar string,
+	pinCode string,
+	role xtypes.UserRole,
+) *User {
+	user := &User{
+		email:         email,
+		passwordHash:  passwordHash,
+		firstName:     firstName,
+		lastName:      lastName,
+		phoneNumber:   phoneNumber,
+		birthDate:     birthDate,
+		addresses:     addresses,
+		avatar:        avatar,
+		pinCode:       pinCode,
+		tier:          xtypes.TierBronze,
+		role:          role,
+		isActive:      false,
+		emailVerified: false,
+	}
+
+	return user
+}
+
+// Getters
+func (u *User) ID() string {
+	return u.id
+}
+
+func (u *User) Email() string {
+	return u.email
+}
+
+func (u *User) PasswordHash() string {
+	return u.passwordHash
+}
+
+func (u *User) FirstName() string {
+	return u.firstName
+}
+
+func (u *User) LastName() string {
+	return u.lastName
+}
+
+func (u *User) PhoneNumber() string {
+	return u.phoneNumber
+}
+
+func (u *User) BirthDate() *time.Time {
+	return u.birthDate
+}
+
+func (u *User) Address() []*Address {
+	return u.addresses
+}
+
+func (u *User) Avatar() string {
+	return u.avatar
+}
+
+func (u *User) PinCode() string {
+	return u.pinCode
+}
+
+func (u *User) Tier() xtypes.UserTier {
+	return u.tier
+}
+
+func (u *User) Role() xtypes.UserRole {
+	return u.role
+}
+
+func (u *User) IsActive() bool {
+	return u.isActive
+}
+
+func (u *User) IsEmailVerified() bool {
+	return u.emailVerified
+}
+
+func (u *User) DefaultAddress() *Address {
+	for _, addr := range u.addresses {
+		if addr.IsDefault() {
+			return addr
+		}
+	}
+	return nil
+}
+
+// Setters
+func (u *User) SetEmail(email string) error {
+	if email == "" || !strings.Contains(email, "@") {
+		return errors.New("invalid email")
+	}
+	u.email = email
+	return nil
+}
+
+func (u *User) SetPasswordHash(hash string) {
+	u.passwordHash = hash
+}
+
+func (u *User) SetFirstName(name string) {
+	u.firstName = name
+}
+
+func (u *User) SetLastName(name string) {
+	u.lastName = name
+}
+
+func (u *User) SetPhoneNumber(phone string) {
+	u.phoneNumber = phone
+}
+
+func (u *User) SetBirthDate(birth *time.Time) {
+	u.birthDate = birth
+}
+
+func (u *User) SetAddress(addr []*Address) {
+	u.addresses = addr
+}
+
+func (u *User) SetAvatar(avatar string) {
+	u.avatar = avatar
+}
+
+func (u *User) SetPinCode(pin string) {
+	u.pinCode = pin
+}
+
+func (u *User) SetTier(tier xtypes.UserTier) {
+	u.tier = tier
+}
+
+func (u *User) SetRole(role xtypes.UserRole) {
+	u.role = role
 }
 
 func (u *User) Validate() error {
-	if u.Email == "" || !strings.Contains(u.Email, "@") {
+	if u.email == "" || !strings.Contains(u.email, "@") {
 		return errors.New("invalid email")
 	}
-	if u.PasswordHash == "" {
+	if u.passwordHash == "" {
 		return errors.New("password hash is required")
 	}
-	if u.FirstName == "" || u.LastName == "" {
+	if u.firstName == "" || u.lastName == "" {
 		return errors.New("first name and last name cannot be empty")
 	}
-	if u.BirthDate == nil {
+	if u.birthDate == nil {
 		return errors.New("birth date is required")
 	}
 	return nil
 }
 
 func (u *User) VerifyEmail() {
-	u.EmailVerified = true
-	u.UpdatedAt = time.Now()
+	u.emailVerified = true
 }
 
 func (u *User) Activate() {
-	u.IsActive = true
-	u.UpdatedAt = time.Now()
+	u.isActive = true
 }
 
 func (u *User) Deactivate() {
-	u.IsActive = false
-	u.UpdatedAt = time.Now()
+	u.isActive = false
 }
 
 func (u *User) UpgradeTier() {
-	switch u.Tier {
-	case TierBronze:
-		u.Tier = TierSilver
-	case TierSilver:
-		u.Tier = TierGold
-	case TierGold:
-		u.Tier = TierPlatinum
+	switch u.tier {
+	case xtypes.TierBronze:
+		u.tier = xtypes.TierSilver
+	case xtypes.TierSilver:
+		u.tier = xtypes.TierGold
+	case xtypes.TierGold:
+		u.tier = xtypes.TierPlatinum
 	}
-	u.UpdatedAt = time.Now()
 }
 
 func (u *User) IsAdmin() bool {
-	return u.Role == RoleAdmin
+	return u.role == xtypes.RoleAdmin
 }
 
 func (u *User) IsSeller() bool {
-	return u.Role == RoleSeller
+	return u.role == xtypes.RoleSeller
 }
 
 func (u *User) IsCustomer() bool {
-	return u.Role == RoleCustomer
+	return u.role == xtypes.RoleCustomer
 }

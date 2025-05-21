@@ -22,8 +22,9 @@ type Server struct {
 
 // New create a new server listening on the provided port. It will starts the listener but
 // does not start the server.
-func New() (*Server, error) {
-	addr := ":0" // service discovery in the future
+func New(port int) (*Server, error) {
+	// addr := ":0" // service discovery in the future
+	addr := fmt.Sprintf(":%d", port)
 	listener, err := net.Listen("tcp", addr)
 	if err != nil {
 		return nil, err

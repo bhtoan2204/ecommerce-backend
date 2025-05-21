@@ -34,8 +34,28 @@ type PostgresConfig struct {
 }
 
 type Locale struct {
-	VIPath string `env:"LOCAL_VI_PATH"`
-	ENPath string `env:"LOCAL_EN_PATH"`
+	VIPath string `mapstructure:"locale_vi_path"`
+	ENPath string `mapstructure:"locale_en_path"`
+}
+
+type ConsumeTopicsConfig struct {
+	Key               string `mapstructure:"key"`
+	Topic             string `mapstructure:"topic"`
+	NumberConsumer    int    `mapstructure:"number_consumer"`
+	NumberDLQConsumer int    `mapstructure:"number_dlq_consumer"`
+	Handler           string `mapstructure:"handler"`
+	DLQ               bool   `mapstructure:"dlq"`
+}
+
+type KafkaConsumerGroups struct {
+	PrefixGroup   string                 `mapstructure:"prefix_group"`
+	OffsetReset   string                 `mapstructure:"offset_reset"`
+	ConsumeTopics []*ConsumeTopicsConfig `mapstructure:"consume_topics"`
+}
+
+type Kafka struct {
+	Servers        string                 `mapstructure:"servers"`
+	ConsumerGroups []*KafkaConsumerGroups `mapstructure:"consume_groups"`
 }
 
 type Config struct {
@@ -44,4 +64,5 @@ type Config struct {
 	SecurityConfig SecurityConfig `mapstructure:"security"`
 	PostgresConfig PostgresConfig `mapstructure:"postgres"`
 	Locale         Locale         `mapstructure:"locale"`
+	Kafka          Kafka          `mapstructure:"kafka"`
 }

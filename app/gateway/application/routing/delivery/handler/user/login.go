@@ -20,15 +20,15 @@ func NewLoginHandler(cfg *settings.Config) *loginHandler {
     return &loginHandler{}
 }
 
-// @Summary permission: 
-// @Tags UserService
-// @Accept json
-// @Produce json
-// @Param username  body  string false "<param_description>"
-// @Param password  body  string false "<param_description>"
-// @Param body  body  user.LoginRequest true "Body example"
-// @Success 200 {object} user.LoginResponse
-// @Router /api/v1/user-service/login [post]
+//	@Summary	permission: 
+//	@Tags		UserService
+//	@Accept		json
+//	@Produce	json
+//	@Param		email		body		string				false	"<param_description>"
+//	@Param		password	body		string				false	"<param_description>"
+//	@Param		body		body		user.LoginRequest	true	"Body example"
+//	@Success	200			{object}	user.LoginResponse
+//	@Router		/api/v1/user-service/login [post]
 func (handler *loginHandler) Handle(ctx *wrapper.Context) (interface{}, error) {
     monitor.SetApmContext(apm.DetachedContext(ctx.Request.Context()))
     data := user.LoginRequest{}

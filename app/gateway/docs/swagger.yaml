@@ -1,5 +1,27 @@
 basePath: /
 definitions:
+  gateway_proto_user.CreateUserRequest:
+    properties:
+      avatar:
+        type: string
+      birth_date:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  gateway_proto_user.CreateUserResponse:
+    properties:
+      message:
+        type: string
+    type: object
   gateway_proto_user.GetProfileResponse:
     properties:
       first_name:
@@ -9,9 +31,9 @@ definitions:
     type: object
   gateway_proto_user.LoginRequest:
     properties:
-      password:
+      email:
         type: string
-      username:
+      password:
         type: string
     type: object
   gateway_proto_user.LoginResponse:
@@ -42,7 +64,7 @@ paths:
       parameters:
       - description: <param_description>
         in: body
-        name: username
+        name: email
         schema:
           type: string
       - description: <param_description>
@@ -80,6 +102,62 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/gateway_proto_user.GetProfileResponse'
+      summary: 'permission:'
+      tags:
+      - UserService
+  /api/v1/user-service/user:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: <param_description>
+        in: body
+        name: email
+        schema:
+          type: string
+      - description: <param_description>
+        in: body
+        name: password
+        schema:
+          type: string
+      - description: <param_description>
+        in: body
+        name: first_name
+        schema:
+          type: string
+      - description: <param_description>
+        in: body
+        name: last_name
+        schema:
+          type: string
+      - description: <param_description>
+        in: body
+        name: phone_number
+        schema:
+          type: string
+      - description: <param_description>
+        in: body
+        name: avatar
+        schema:
+          type: string
+      - description: <param_description>
+        in: body
+        name: birth_date
+        schema:
+          type: string
+      - description: Body example
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/gateway_proto_user.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gateway_proto_user.CreateUserResponse'
       summary: 'permission:'
       tags:
       - UserService

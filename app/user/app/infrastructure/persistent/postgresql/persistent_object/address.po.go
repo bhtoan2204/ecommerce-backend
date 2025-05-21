@@ -2,7 +2,7 @@ package persistentobject
 
 type Address struct {
 	BasePO
-	UserID    uint   `gorm:"index;not null"`
+	UserID    int64  `gorm:"index;not null;column:user_id"`
 	Line1     string `gorm:"size:255;not null"`
 	Line2     string `gorm:"size:255"`
 	City      string `gorm:"size:100;not null"`

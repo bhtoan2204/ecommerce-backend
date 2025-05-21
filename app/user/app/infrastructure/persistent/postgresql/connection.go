@@ -60,6 +60,7 @@ func (p *PostgresDB) migrateTables() {
 	models := []interface{}{
 		&persistentobject.User{},
 		&persistentobject.Address{},
+		&persistentobject.Session{},
 	}
 	err := p.db.AutoMigrate(models...)
 	if err != nil {

@@ -31,8 +31,8 @@ func (j *JWTUtils) GenerateToken(user *entities.User) (string, string, int64, in
 	refreshExpiration := time.Now().Add(time.Duration(j.RefreshExpiration) * time.Second).Unix()
 
 	accessClaims := jwt.MapClaims{
-		"id":    user.ID,
-		"email": user.Email,
+		"id":    user.ID(),
+		"email": user.Email(),
 		"exp":   accessExpiration,
 	}
 

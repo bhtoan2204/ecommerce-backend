@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os/signal"
 	"syscall"
-	"user/app/application"
+	"user/app/interfaces"
 	"user/config"
 	"user/package/logger"
 	"user/package/settings"
@@ -30,7 +30,7 @@ func start(ctx context.Context, config *settings.Config) error {
 	// Initialize your application here
 	// For example, you can set up a database connection, start a web server, etc.
 	// writeDb := postgresql.GetWriteDB(config)
-	app, err := application.NewApp(config)
+	app, err := interfaces.NewApp(config)
 	if err != nil {
 		return fmt.Errorf("new app got err=%w", err)
 	}
