@@ -10,6 +10,7 @@ import (
 	"time"
 	"user/package/logger"
 
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
 
@@ -84,6 +85,7 @@ func (s *Server) ServeGRPC(ctx context.Context, srv *grpc.Server) error {
 		srv.GracefulStop()
 	}()
 
+	log.Info("ServeGRPC: gRPC server started", zap.String("addr", s.listener.Addr().String()))
 	// Run the server. This will block until the provided context is closed.
 	if err := srv.Serve(s.listener); err != nil && !errors.Is(err, grpc.ErrServerStopped) {
 		return fmt.Errorf("failed to serve: %w", err)

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os/signal"
 	"syscall"
-	"user/app/interfaces"
+	"user/app/presentation"
 	"user/config"
 	"user/package/logger"
 	"user/package/settings"
@@ -27,17 +27,17 @@ func main() {
 }
 
 func start(ctx context.Context, config *settings.Config) error {
-	// Initialize your application here
-	// For example, you can set up a database connection, start a web server, etc.
-	// writeDb := postgresql.GetWriteDB(config)
-	app, err := interfaces.NewApp(config)
+	log := logger.FromContext(ctx)
+	app, err := presentation.NewApp(ctx, config)
 	if err != nil {
+		log.Error("NewApp failed", zap.Error(err))
 		return fmt.Errorf("new app got err=%w", err)
 	}
 
 	if app == nil {
+		log.Error("NewApp returned nil app without error")
 		return fmt.Errorf("NewApp returned nil app without error")
 	}
-
+	log.Info("Starting application")
 	return app.Start(ctx)
 }

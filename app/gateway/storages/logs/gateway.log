@@ -157,3 +157,4 @@
 {"level":"INFO","timestamp":"2025-05-21T17:54:24.094+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
 {"level":"INFO","timestamp":"2025-05-21T17:54:24.095+0700","caller":"cmd/main.go:46","msg":"App shutdown successful"}
 {"level":"INFO","timestamp":"2025-05-21T17:55:33.368+0700","caller":"application/app.go:114","msg":"HTTP Server running on PORT","port":8080}
+{"level":"INFO","timestamp":"2025-05-23T14:32:13.735+0700","caller":"application/app.go:114","msg":"HTTP Server running on PORT","port":8080}

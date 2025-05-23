@@ -2,7 +2,7 @@ package handler
 
 import (
 	"context"
-	"user/app/domain/dto"
+	"user/app/application/commands/command"
 	"user/app/domain/services"
 )
 
@@ -16,6 +16,6 @@ func NewCreateUserCommandHandler(userService services.UserService) *CreateUserCo
 	}
 }
 
-func (h *CreateUserCommandHandler) Handle(ctx context.Context, cmd *dto.CreateUserRequest) (*dto.CreateUserResponse, error) {
+func (h *CreateUserCommandHandler) Handle(ctx context.Context, cmd *command.CreateUserCommand) (*command.CreateUserCommandResult, error) {
 	return h.userService.CreateUser(ctx, cmd)
 }

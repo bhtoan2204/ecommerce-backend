@@ -35,7 +35,6 @@ func (j *JWTUtils) GenerateToken(user *entities.User) (string, string, int64, in
 		"email": user.Email(),
 		"exp":   accessExpiration,
 	}
-
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, accessClaims)
 	signedAccessToken, err := accessToken.SignedString(accessSecret)
 
@@ -44,7 +43,7 @@ func (j *JWTUtils) GenerateToken(user *entities.User) (string, string, int64, in
 	}
 
 	refreshClaims := jwt.MapClaims{
-		"id":  user.ID,
+		"id":  user.ID(),
 		"exp": refreshExpiration,
 	}
 

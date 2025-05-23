@@ -2,48 +2,57 @@ package command_bus
 
 import (
 	"context"
-	"errors"
-	"user/package/logger"
-
-	"go.uber.org/zap"
+	"fmt"
 )
 
 type Command interface {
 	CommandName() string
-	Validate() error
 }
 
-type HandlerFunc func(context.Context, Command) (interface{}, error)
+type rawHandler func(ctx context.Context, c any) (any, error)
 
 type CommandBus struct {
-	handlers map[string]HandlerFunc
+	handlers map[string]rawHandler
 }
 
 func NewCommandBus() *CommandBus {
 	return &CommandBus{
-		handlers: make(map[string]HandlerFunc),
+		handlers: make(map[string]rawHandler),
 	}
 }
 
-func (bus *CommandBus) RegisterHandler(commandName string, handler HandlerFunc) {
-	bus.handlers[commandName] = handler
+func RegisterHandler[C Command, R any](
+	b *CommandBus,
+	handler func(context.Context, C) (R, error),
+) {
+	var zeroC C
+	name := zeroC.CommandName()
+
+	b.handlers[name] = func(ctx context.Context, raw any) (any, error) {
+		cmd, ok := raw.(C)
+		if !ok {
+			return *new(R), fmt.Errorf("invalid command type for %s", name)
+		}
+		return handler(ctx, cmd)
+	}
 }
 
-func (bus *CommandBus) Dispatch(ctx context.Context, cmd Command) (interface{}, error) {
-	log := logger.FromContext(ctx)
-	commandName := cmd.CommandName()
+func Dispatch[C Command, R any](b *CommandBus, ctx context.Context, cmd C) (R, error) {
+	var zeroR R
 
-	handler, exists := bus.handlers[commandName]
-	if !exists {
-		err := errors.New("no handler registered for command: " + commandName)
-		log.Error("no handler registered for command", zap.Error(err))
-		return nil, err
+	handler, ok := b.handlers[cmd.CommandName()]
+	if !ok {
+		return zeroR, fmt.Errorf("no handler for command %s", cmd.CommandName())
 	}
 
 	result, err := handler(ctx, cmd)
 	if err != nil {
-		log.Error("handle command get failed", zap.Error(err))
-		return nil, err
+		return zeroR, err
 	}
-	return result, nil
+
+	res, ok := result.(R)
+	if !ok {
+		return zeroR, fmt.Errorf("invalid result type for command %s", cmd.CommandName())
+	}
+	return res, nil
 }

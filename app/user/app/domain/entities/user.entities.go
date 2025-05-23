@@ -4,12 +4,14 @@ import (
 	"errors"
 	"strings"
 	"time"
+	"user/app/domain/value_object"
 	"user/package/xtypes"
 )
 
 type User struct {
-	id            string
+	id            int64
 	email         string
+	password      value_object.Password
 	passwordHash  string
 	firstName     string
 	lastName      string
@@ -59,13 +61,50 @@ func NewUser(
 	return user
 }
 
+func NewUserWithID(
+	id int64,
+	email string,
+	passwordHash string,
+	firstName string,
+	lastName string,
+	phoneNumber string,
+	birthDate *time.Time,
+	addresses []*Address,
+	avatar string,
+	pinCode string,
+	role xtypes.UserRole,
+) *User {
+	user := &User{
+		id:            id,
+		email:         email,
+		passwordHash:  passwordHash,
+		firstName:     firstName,
+		lastName:      lastName,
+		phoneNumber:   phoneNumber,
+		birthDate:     birthDate,
+		addresses:     addresses,
+		avatar:        avatar,
+		pinCode:       pinCode,
+		tier:          xtypes.TierBronze,
+		role:          role,
+		isActive:      false,
+		emailVerified: false,
+	}
+
+	return user
+}
+
 // Getters
-func (u *User) ID() string {
+func (u *User) ID() int64 {
 	return u.id
 }
 
 func (u *User) Email() string {
 	return u.email
+}
+
+func (u *User) Password() value_object.Password {
+	return u.password
 }
 
 func (u *User) PasswordHash() string {
@@ -136,6 +175,10 @@ func (u *User) SetEmail(email string) error {
 
 func (u *User) SetPasswordHash(hash string) {
 	u.passwordHash = hash
+}
+
+func (u *User) SetPassword(password value_object.Password) {
+	u.password = password
 }
 
 func (u *User) SetFirstName(name string) {

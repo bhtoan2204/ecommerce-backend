@@ -25,7 +25,8 @@ func UserToEntity(user *model.User) *entities.User {
 	for i, address := range user.Addresses {
 		addresses[i] = AddressToEntity(&address)
 	}
-	return entities.NewUser(
+	return entities.NewUserWithID(
+		user.ID,
 		user.Email,
 		user.Password,
 		user.FirstName,

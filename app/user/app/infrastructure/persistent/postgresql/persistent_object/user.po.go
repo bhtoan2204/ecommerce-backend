@@ -1,4 +1,4 @@
-package persistentobject
+package persistent_object
 
 import (
 	"time"

@@ -41,14 +41,12 @@ func Init(cfg *settings.Config) error {
 	return nil
 }
 
-// Get ...
 func Get(ctx context.Context, key string, params ...interface{}) string {
 	languageKey := getLanguageKeyFromContext(ctx)
 
 	return GetByLocale(languageKey, key, params...)
 }
 
-// GetByLocale ...
 func GetByLocale(locale string, key string, params ...interface{}) string {
 	var message map[string]string
 	if messages[locale] != nil {

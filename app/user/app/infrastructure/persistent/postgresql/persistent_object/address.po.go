@@ -1,4 +1,4 @@
-package persistentobject
+package persistent_object
 
 type Address struct {
 	BasePO

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"context"
-	"user/app/domain/dto"
+	"user/app/application/commands/command"
 	"user/app/domain/services"
 )
 
@@ -16,6 +16,6 @@ func NewLoginCommandHandler(userService services.UserService) *LoginCommandHandl
 	}
 }
 
-func (h *LoginCommandHandler) Handle(ctx context.Context, cmd *dto.LoginRequest) (*dto.LoginResponse, error) {
+func (h *LoginCommandHandler) Handle(ctx context.Context, cmd *command.LoginCommand) (*command.LoginCommandResult, error) {
 	return h.userService.Login(ctx, cmd)
 }
