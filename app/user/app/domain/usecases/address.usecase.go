@@ -1,4 +1,4 @@
-package services
+package usecases
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"user/app/infrastructure/persistent/postgresql/repository"
 )
 
-type AddressService interface {
+type AddressUsecase interface {
 	GetAddressByUserId(ctx context.Context, userId string) ([]*entities.Address, error)
 	GetAddressById(ctx context.Context, id string) (*entities.Address, error)
 	GetAllAddresses(ctx context.Context) ([]*entities.Address, error)
@@ -16,36 +16,36 @@ type AddressService interface {
 	DeleteAddress(ctx context.Context, id string) error
 }
 
-type addressService struct {
+type addressUsecase struct {
 	addressRepository repository.AddressRepository
 }
 
-func NewAddressService(addressRepository repository.AddressRepository) AddressService {
-	return &addressService{
+func NewAddressUsecase(addressRepository repository.AddressRepository) AddressUsecase {
+	return &addressUsecase{
 		addressRepository: addressRepository,
 	}
 }
 
-func (as *addressService) GetAddressByUserId(ctx context.Context, userId string) ([]*entities.Address, error) {
+func (as *addressUsecase) GetAddressByUserId(ctx context.Context, userId string) ([]*entities.Address, error) {
 	return nil, errors.New("GetAddressByUserId: not implemented yet")
 }
 
-func (as *addressService) GetAddressById(ctx context.Context, id string) (*entities.Address, error) {
+func (as *addressUsecase) GetAddressById(ctx context.Context, id string) (*entities.Address, error) {
 	return nil, errors.New("GetAddressById: not implemented yet")
 }
 
-func (as *addressService) GetAllAddresses(ctx context.Context) ([]*entities.Address, error) {
+func (as *addressUsecase) GetAllAddresses(ctx context.Context) ([]*entities.Address, error) {
 	return nil, errors.New("GetAllAddresses: not implemented yet")
 }
 
-func (as *addressService) CreateAddress(ctx context.Context, address *entities.Address) (*entities.Address, error) {
+func (as *addressUsecase) CreateAddress(ctx context.Context, address *entities.Address) (*entities.Address, error) {
 	return nil, errors.New("CreateAddress: not implemented yet")
 }
 
-func (as *addressService) UpdateAddress(ctx context.Context, id string, address *entities.Address) (*entities.Address, error) {
+func (as *addressUsecase) UpdateAddress(ctx context.Context, id string, address *entities.Address) (*entities.Address, error) {
 	return nil, errors.New("UpdateAddress: not implemented yet")
 }
 
-func (as *addressService) DeleteAddress(ctx context.Context, id string) error {
+func (as *addressUsecase) DeleteAddress(ctx context.Context, id string) error {
 	return errors.New("DeleteAddress: not implemented yet")
 }

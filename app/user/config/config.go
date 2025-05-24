@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func InitLoadConfig() (settings.Config, error) {
+func InitConfig() (settings.Config, error) {
 	env := os.Getenv("GO_ENV")
 	if env == "" {
 		env = "local"
@@ -42,6 +42,8 @@ func bindEnv(v *viper.Viper) {
 	v.BindEnv("server.mode", "SERVER_MODE")
 	v.BindEnv("server.gin_mode", "GIN_MODE")
 	v.BindEnv("server.grpc_port", "GRPC_PORT")
+	v.BindEnv("server.http_port", "HTTP_PORT")
+	v.BindEnv("server.metric_port", "METRIC_PORT")
 
 	// Security mappings
 	v.BindEnv("security.jwt_access_secret", "SECURITY_JWT_ACCESS_SECRET")

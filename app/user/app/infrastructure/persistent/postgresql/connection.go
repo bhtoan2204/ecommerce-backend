@@ -40,7 +40,7 @@ func (p *PostgresDB) initDB(ctx context.Context) {
 		p.config.PostgresConfig.Password,
 		p.config.PostgresConfig.Database,
 	)
-
+	log.Info("Connecting to Postgres DB", zap.String("dsn", dsn))
 	var err error
 	for i := 1; i <= 5; i++ {
 		p.db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})

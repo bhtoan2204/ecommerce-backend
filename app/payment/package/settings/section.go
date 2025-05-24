@@ -1,9 +1,11 @@
 package settings
 
 type ServerConfig struct {
-	Mode     string `mapstructure:"mode"`
-	GinMode  string `mapstructure:"gin_mode"`
-	GRPCPort int    `mapstructure:"grpc_port"`
+	Mode       string `mapstructure:"mode"`
+	GinMode    string `mapstructure:"gin_mode"`
+	GRPCPort   int    `mapstructure:"grpc_port"`
+	METRICPort int    `mapstructure:"metric_port"`
+	HTTPPort   int    `mapstructure:"http_port"`
 }
 
 type SecurityConfig struct {

@@ -1,4 +1,4 @@
-package services
+package usecases
 
 import (
 	"context"
@@ -16,24 +16,24 @@ import (
 	"go.uber.org/zap"
 )
 
-type UserService interface {
+type UserUsecase interface {
 	Login(ctx context.Context, command *command.LoginCommand) (*command.LoginCommandResult, error)
 	CreateUser(ctx context.Context, command *command.CreateUserCommand) (*command.CreateUserCommandResult, error)
 }
 
-type userService struct {
+type userUsecase struct {
 	userRepository repository.UserRepository
 	jwt_utils      jwt_utils.JWTUtils
 }
 
-func NewUserService(userRepository repository.UserRepository, jwt_utils jwt_utils.JWTUtils) UserService {
-	return &userService{
+func NewUserUsecase(userRepository repository.UserRepository, jwt_utils jwt_utils.JWTUtils) UserUsecase {
+	return &userUsecase{
 		userRepository: userRepository,
 		jwt_utils:      jwt_utils,
 	}
 }
 
-func (s *userService) Login(ctx context.Context, cmd *command.LoginCommand) (*command.LoginCommandResult, error) {
+func (s *userUsecase) Login(ctx context.Context, cmd *command.LoginCommand) (*command.LoginCommandResult, error) {
 	log := logger.FromContext(ctx)
 
 	user, err := s.userRepository.GetUserByEmail(ctx, cmd.Email)
@@ -71,7 +71,7 @@ func (s *userService) Login(ctx context.Context, cmd *command.LoginCommand) (*co
 	}, nil
 }
 
-func (s *userService) CreateUser(ctx context.Context, cmd *command.CreateUserCommand) (*command.CreateUserCommandResult, error) {
+func (s *userUsecase) CreateUser(ctx context.Context, cmd *command.CreateUserCommand) (*command.CreateUserCommandResult, error) {
 	log := logger.FromContext(ctx)
 	userEntities := entities.DefaultUser()
 

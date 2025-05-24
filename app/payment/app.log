@@ -1,0 +1,26 @@
+{"level":"INFO","timestamp":"2025-05-25T00:30:00.386+0700","caller":"postgresql/connection.go:43","msg":"Connecting to Postgres DB","dsn":"host=localhost port=5432 user=root password=root dbname=ecom_payment sslmode=disable"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:00.399+0700","caller":"postgresql/connection.go:48","msg":"Connected to DB","attempt":1}
+{"level":"INFO","timestamp":"2025-05-25T00:30:00.493+0700","caller":"cmd/main.go:41","msg":"Starting application"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:00.503+0700","caller":"presentation/app.go:114","msg":"Starting GRPC Server","ip":"::","port":"5010"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:00.503+0700","caller":"presentation/app.go:66","msg":"Metric running on PORT","port":"7070"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:00.503+0700","caller":"server/server.go:88","msg":"ServeGRPC: gRPC server started","addr":"[::]:5010"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:10.629+0700","caller":"server/server.go:84","msg":"ServeGRPC: shutting down"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:10.629+0700","caller":"server/server.go:53","msg":"ServeHTTP: shutting down"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:10.630+0700","caller":"server/server.go:63","msg":"ServeHTTP: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-25T00:30:10.630+0700","caller":"server/server.go:94","msg":"ServeGPRC: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-25T00:32:12.354+0700","caller":"postgresql/connection.go:43","msg":"Connecting to Postgres DB","dsn":"host=localhost port=5432 user=root password=root dbname=ecom_payment sslmode=disable"}
+{"level":"INFO","timestamp":"2025-05-25T00:32:12.360+0700","caller":"postgresql/connection.go:48","msg":"Connected to DB","attempt":1}
+{"level":"INFO","timestamp":"2025-05-25T00:32:12.529+0700","caller":"cmd/main.go:41","msg":"Starting application"}
+{"level":"INFO","timestamp":"2025-05-25T00:32:12.536+0700","caller":"presentation/app.go:114","msg":"Starting GRPC Server","ip":"::","port":"6010"}
+{"level":"WARN","timestamp":"2025-05-25T00:32:12.536+0700","caller":"presentation/app.go:62","msg":"New server metric","error":"listen tcp :6010: bind: address already in use"}
+{"level":"INFO","timestamp":"2025-05-25T00:32:12.537+0700","caller":"server/server.go:88","msg":"ServeGRPC: gRPC server started","addr":"[::]:6010"}
+{"level":"INFO","timestamp":"2025-05-25T00:33:03.159+0700","caller":"server/server.go:84","msg":"ServeGRPC: shutting down"}
+{"level":"INFO","timestamp":"2025-05-25T00:33:03.159+0700","caller":"server/server.go:94","msg":"ServeGPRC: serve stopped"}
+{"level":"INFO","timestamp":"2025-05-25T00:33:04.091+0700","caller":"postgresql/connection.go:43","msg":"Connecting to Postgres DB","dsn":"host=localhost port=5432 user=root password=root dbname=ecom_payment sslmode=disable"}
+{"level":"INFO","timestamp":"2025-05-25T00:33:04.097+0700","caller":"postgresql/connection.go:48","msg":"Connected to DB","attempt":1}
+{"level":"INFO","timestamp":"2025-05-25T00:33:04.263+0700","caller":"cmd/main.go:41","msg":"Starting application"}
+{"level":"INFO","timestamp":"2025-05-25T00:33:04.270+0700","caller":"presentation/app.go:114","msg":"Starting GRPC Server","ip":"::","port":"6010"}
+{"level":"INFO","timestamp":"2025-05-25T00:33:04.270+0700","caller":"server/server.go:88","msg":"ServeGRPC: gRPC server started","addr":"[::]:6010"}
+{"level":"WARN","timestamp":"2025-05-25T00:33:04.270+0700","caller":"presentation/app.go:62","msg":"New server metric","error":"listen tcp :6010: bind: address already in use"}
+{"level":"INFO","timestamp":"2025-05-25T01:19:00.478+0700","caller":"server/server.go:84","msg":"ServeGRPC: shutting down"}
+{"level":"INFO","timestamp":"2025-05-25T01:19:00.484+0700","caller":"server/server.go:94","msg":"ServeGPRC: serve stopped"}

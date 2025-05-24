@@ -3,19 +3,19 @@ package handler
 import (
 	"context"
 	"user/app/application/commands/command"
-	"user/app/domain/services"
+	"user/app/domain/usecases"
 )
 
 type CreateUserCommandHandler struct {
-	userService services.UserService
+	userUsecase usecases.UserUsecase
 }
 
-func NewCreateUserCommandHandler(userService services.UserService) *CreateUserCommandHandler {
+func NewCreateUserCommandHandler(userUsecase usecases.UserUsecase) *CreateUserCommandHandler {
 	return &CreateUserCommandHandler{
-		userService: userService,
+		userUsecase: userUsecase,
 	}
 }
 
 func (h *CreateUserCommandHandler) Handle(ctx context.Context, cmd *command.CreateUserCommand) (*command.CreateUserCommandResult, error) {
-	return h.userService.CreateUser(ctx, cmd)
+	return h.userUsecase.CreateUser(ctx, cmd)
 }

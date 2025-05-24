@@ -15,7 +15,7 @@ import (
 
 func main() {
 	ctx, done := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	config, _ := config.InitLoadConfig()
+	config, _ := config.InitConfig()
 	logger := logger.NewLogger(config.LogConfig)
 	defer func() {
 		done()

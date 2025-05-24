@@ -2,7 +2,7 @@ package presentation
 
 import (
 	"context"
-	"user/app/domain/services"
+	"user/app/domain/usecases"
 	"user/app/infrastructure/persistent/postgresql"
 	"user/app/infrastructure/persistent/postgresql/repository"
 	"user/package/contxt"
@@ -20,6 +20,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	appGrpc "user/app/presentation/grpc"
+	appHttp "user/app/presentation/http"
 
 	pbHealth "google.golang.org/grpc/health/grpc_health_v1"
 )
@@ -31,45 +32,46 @@ type App interface {
 }
 
 type app struct {
-	cfg  *settings.Config
-	srvs services.Service
+	cfg *settings.Config
+	ucs usecases.Usecase
 }
 
 func NewApp(ctx context.Context, cfg *settings.Config) (App, error) {
 	postgresDB := postgresql.NewPostgresDB(ctx, cfg)
 	postgresRepository := repository.NewRepository(postgresDB.GetDB())
-	services, err := services.NewService(cfg, &postgresRepository)
+	ucs, err := usecases.NewUsecase(cfg, &postgresRepository)
 
 	if err != nil {
 		return nil, err
 	}
 	return &app{
-		cfg:  cfg,
-		srvs: services,
+		cfg: cfg,
+		ucs: ucs,
 	}, nil
 }
 
 func (a *app) Start(ctx context.Context) error {
-	// HTTP
+	// Metrics
 	log := logger.FromContext(ctx)
 
-	// app, err := appHttp.New(a.cfg, a.ucs)
-	// if err != nil {
-	// 	return fmt.Errorf("new application failed err=%w", err)
-	// }
+	go func() {
+		srvMetric, err := server.New(a.cfg.Server.MetricPort)
+		if err != nil {
+			log.Warn("New server metric", zap.Error(err))
+			return
+		}
 
-	// srv, err := server.New()
-	// if err != nil {
-	// 	return err
-	// }
-	// log.Info("HTTP Server running on PORT: %s", zap.String("port", srv.Port()))
+		log.Info("Metric running on PORT", zap.String("port", srvMetric.Port()))
 
-	// go func() {
-	// 	err = srv.ServeHTTPHandler(ctx, app.Routes(ctx))
-	// 	if err != nil {
-	// 		log.Warn("Serve HTTP Handler failed err=%w", zap.Error(err))
-	// 	}
-	// }()
+		metric, err := appHttp.NewMetric()
+		if err != nil {
+			log.Warn("New app metric", zap.Error(err))
+			return
+		}
+		if err := srvMetric.ServeHTTPHandler(ctx, metric.Handler()); err != nil {
+			log.Warn("Serve metric handler", zap.Error(err))
+		}
+	}()
 
 	// GRPC
 	panicHandler := func(p any) (err error) {
@@ -95,7 +97,7 @@ func (a *app) Start(ctx context.Context) error {
 	healthCheck := ghealth.NewHealthService()
 	pbHealth.RegisterHealthServer(rpcServer, healthCheck)
 
-	gApp, err := appGrpc.NewGrpcApp(a.srvs)
+	gApp, err := appGrpc.NewGrpcApp(a.ucs)
 	if err != nil {
 		return err
 	}

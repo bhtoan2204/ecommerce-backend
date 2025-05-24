@@ -5,7 +5,7 @@ import (
 	command_bus "user/app/application/commands"
 	"user/app/application/commands/command"
 	"user/app/application/commands/handler"
-	"user/app/domain/services"
+	"user/app/domain/usecases"
 	"user/proto/user"
 )
 
@@ -17,25 +17,25 @@ type GrpcApp interface {
 
 type grpcApp struct {
 	commandBus *command_bus.CommandBus
-	srvs       services.Service
+	ucs        usecases.Usecase
 }
 
-func NewGrpcApp(srvs services.Service) (GrpcApp, error) {
+func NewGrpcApp(ucs usecases.Usecase) (GrpcApp, error) {
 	commandBus := command_bus.NewCommandBus()
 
-	registerAuthHandlers(commandBus, srvs)
-	registerUserHandlers(commandBus, srvs)
+	registerAuthHandlers(commandBus, ucs)
+	registerUserHandlers(commandBus, ucs)
 
 	return &grpcApp{
 		commandBus: commandBus,
-		srvs:       srvs,
+		ucs:        ucs,
 	}, nil
 }
 
-func registerAuthHandlers(bus *command_bus.CommandBus, srvs services.Service) {
-	userService := srvs.UserService()
+func registerAuthHandlers(bus *command_bus.CommandBus, ucs usecases.Usecase) {
+	userService := ucs.UserUsecase()
 
-	command_bus.RegisterHandler[*command.LoginCommand, *command.LoginCommandResult](
+	command_bus.RegisterHandler(
 		bus,
 		func(ctx context.Context, cmd *command.LoginCommand) (*command.LoginCommandResult, error) {
 			handler := handler.NewLoginCommandHandler(userService)
@@ -44,10 +44,10 @@ func registerAuthHandlers(bus *command_bus.CommandBus, srvs services.Service) {
 	)
 }
 
-func registerUserHandlers(bus *command_bus.CommandBus, srvs services.Service) {
-	userService := srvs.UserService()
+func registerUserHandlers(bus *command_bus.CommandBus, ucs usecases.Usecase) {
+	userService := ucs.UserUsecase()
 
-	command_bus.RegisterHandler[*command.CreateUserCommand, *command.CreateUserCommandResult](
+	command_bus.RegisterHandler(
 		bus,
 		func(ctx context.Context, cmd *command.CreateUserCommand) (*command.CreateUserCommandResult, error) {
 			handler := handler.NewCreateUserCommandHandler(userService)

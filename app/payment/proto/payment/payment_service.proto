@@ -1,0 +1,7 @@
+syntax = "proto3";
+package payment;
+option go_package = "gateway/proto/payment;payment";
+
+// /api/v1/payment-service
+service paymentService {
+}
