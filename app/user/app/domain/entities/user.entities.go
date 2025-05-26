@@ -128,7 +128,9 @@ func (u *User) BirthDate() *time.Time {
 }
 
 func (u *User) Address() []*Address {
-	return u.addresses
+	address := make([]*Address, len(u.addresses))
+	copy(address, u.addresses)
+	return address
 }
 
 func (u *User) Avatar() string {
